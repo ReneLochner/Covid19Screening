@@ -10,6 +10,7 @@ using Covid19Screening.Core.Entities;
 using Covid19Screening.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Covid19Screening.Web.Pages
 {
@@ -20,17 +21,29 @@ namespace Covid19Screening.Web.Pages
         [BindProperty]
         [Required(ErrorMessage = "Die {0} ist verpflichtend!")]
         [DisplayName("Kampagne")]
-        public IEnumerable<CampaignDto> Campaigns { get; set; } = Enumerable.Empty<CampaignDto>();
+        public List<SelectListItem> Campaigns { get; set; } = new List<SelectListItem>();
+
+        [BindProperty]
+        [DisplayName("Campaign")]
+        public int SelectedCampaignId { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Der {0} ist verpflichtend!")]
         [DisplayName("Untersuchungsort")]
-        public List<TestCenter> TestCenters { get; set; } = new List<TestCenter>();
+        public List<SelectListItem> TestCenters { get; set; } = new List<SelectListItem>();
+
+        [BindProperty]
+        [DisplayName("Test Center")]
+        public int SelectedTestCenterId { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Der {0} ist verpflichtend!")]
         [DisplayName("Datum")]
-        public List<DateTime> Dates { get; set; } = new List<DateTime>();
+        public List<SelectListItem> CampaignDates { get; set; } = new List<SelectListItem>();
+
+        [BindProperty]
+        [DisplayName("Campaign Date")]
+        public int SelectedCampaignDate { get; set; }
 
         [BindProperty]
         [Required(ErrorMessage = "Der {0} ist verpflichtend!")]
@@ -44,14 +57,45 @@ namespace Covid19Screening.Web.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            Campaigns = await _unitOfWork.Campaigns.GetAllAsync();
+            SelectedCampaignId = 0;
+            await LoadCampaigns();
+            await LoadTestCenters();
+            
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPost()
+        {
+            await LoadCampaigns();
+            await LoadTestCenters();
 
             return Page();
         }
 
-        public void OnPost()
+        public async Task LoadCampaigns()
         {
+            var xxx = await _unitOfWork.Campaigns
+                .GetAllAsync();
 
+            Campaigns = (await _unitOfWork.Campaigns
+                .GetAllAsync())
+                .Select(campaign => new SelectListItem(
+                    text: $"{campaign.Name}",
+                    value: campaign.Id.ToString(),
+                    selected: SelectedCampaignId == campaign.Id
+                 ))
+                .ToList();
+        }
+
+        public async Task LoadTestCenters()
+        {
+            TestCenters = (await _unitOfWork.TestCenters
+                .GetAllAsync())
+                .Select(testCenter => new SelectListItem(
+                    text: $"{testCenter.Name}",
+                    value: testCenter.Id.ToString()
+                 ))
+                .ToList();
         }
     }
 }
