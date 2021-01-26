@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Covid19Screening.Core\Covid19Screening.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

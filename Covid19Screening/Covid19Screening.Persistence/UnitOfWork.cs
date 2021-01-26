@@ -7,7 +7,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Covid19Screening.Core.Models;
 using Twilio.Rest.Api.V2010.Account.Conference;
+using Covid19Screening.Core.Entities;
 
 namespace Covid19Screening.Persistence
 {
@@ -16,13 +18,11 @@ namespace Covid19Screening.Persistence
         private readonly ApplicationDbContext _dbContext;
         private bool _disposed;
 
+        public ICampaignRepository Campaigns { get; }
+        public ITestCenterRepository TestCenters { get; }
+        public IParticipantRepository Participants { get; }
         public IVerificationTokenRepository VerificationTokens { get; }
-
-        // public IGenericRepository<Campaign> Campaigns { get; }
-        // public ITestCenterRepository TestCenters { get; }
-        // public IGenericRepository<Participant> Participants { get; }
-        // public IGenericRepository<VerificationToken> VerificationTokens { get; }
-        // public IExaminationRepository Examinations { get; }
+        public IExaminationRepository Examinations { get; }
 
         /// <summary>
         /// ConnectionString kommt aus den appsettings.json
@@ -35,12 +35,11 @@ namespace Covid19Screening.Persistence
         {
             this._dbContext = dbContext;
 
+            Campaigns = new CampaignRepository(_dbContext);
+            TestCenters = new TestCenterRepository(_dbContext);
+            Participants = new ParticipantRepository(_dbContext);
             VerificationTokens = new VerificationTokenRepository(_dbContext);
-            // Campaigns = new GenericRepository<Campaign>(_dbContext);
-            // TestCenters = new TestCenterRepository(_dbContext);
-            // Participants = new GenericRepository<Participant>(_dbContext);
-            // VerificationTokens = new GenericRepository<VerificationToken>(_dbContext);
-            // Examinations = new ExaminationRepository(_dbContext);
+            Examinations = new ExaminationRepository(_dbContext);
         }
 
         public async Task<int> SaveChangesAsync()
@@ -51,7 +50,7 @@ namespace Covid19Screening.Persistence
                 .Select(e => e.Entity);
             foreach (var entity in entities)
             {
-                ValidateEntity(entity); // ToDo await
+                await ValidateEntity(entity);
             }
             return await _dbContext.SaveChangesAsync();
         }
@@ -60,16 +59,16 @@ namespace Covid19Screening.Persistence
         /// Validierungen auf DbContext-Ebene
         /// </summary>
         /// <param name="entity"></param>
-        private void ValidateEntity(object entity) // ToDo: async Task
+        private async Task ValidateEntity(object entity)
         {
-            // if (entity is Participant participant)
-            // {
-            //     if (await _dbContext.Participants.AnyAsync(p =>
-            //         p.Id != participant.Id && p.SocialSecurityNumber == participant.SocialSecurityNumber))
-            //     {
-            //         throw new ValidationException($"Eine Person mit der Sozialversicherungsnummer {participant.SocialSecurityNumber} ist bereits registriert.");
-            //     }
-            // }
+            if (entity is Participant participant)
+            {
+                if (await _dbContext.Participants.AnyAsync(p =>
+                    p.Id != participant.SocialSecurityNumber && p.SocialSecurityNumber == participant.SocialSecurityNumber))
+                {
+                    throw new ValidationException($"Eine Person mit der Sozialversicherungsnummer {participant.SocialSecurityNumber} ist bereits registriert.");
+                }
+            }
         }
 
         public async Task DeleteDatabaseAsync() => await _dbContext.Database.EnsureDeletedAsync();
