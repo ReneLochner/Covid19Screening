@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Covid19Screening.Core.Entities
 {
-    public class TestCenter
+    public class TestCenter : EntityObject
     {
         public Campaign AvailableInCampaigns { get; set; }
         public string Name { get; set; }

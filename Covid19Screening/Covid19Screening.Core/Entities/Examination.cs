@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Covid19Screening.Core.Entities
 {
-    public class Examination
+    public class Examination : EntityObject
     {
         public TestCenter ExaminationAt { get; set; }
-        public int Id { get; set; }
 
         public static Examination CreateNew()
         {

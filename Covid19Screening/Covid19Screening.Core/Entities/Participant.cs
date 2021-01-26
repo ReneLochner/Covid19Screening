@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Covid19Screening.Core.Entities
 {
-    public class Participant
+    public class Participant : EntityObject
     {
         [Required]
         [DisplayName("Vorname")]
