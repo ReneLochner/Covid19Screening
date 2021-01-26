@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Covid19Screening.Core\Covid19Screening.Core.csproj" />
+    <ProjectReference Include="..\Covid19Screening.Persistence\Covid19Screening.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
