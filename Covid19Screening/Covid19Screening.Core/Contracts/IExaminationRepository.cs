@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Covid19Screening.Core.Contracts
 {
-    public class IExaminationRepository
+    public interface IExaminationRepository
     {
     }
 }

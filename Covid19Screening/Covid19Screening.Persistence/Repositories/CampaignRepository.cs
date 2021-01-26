@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Covid19Screening.Core.Entities;
 
 namespace Covid19Screening.Persistence.Repositories
 {
@@ -16,6 +17,11 @@ namespace Covid19Screening.Persistence.Repositories
         public CampaignRepository(ApplicationDbContext dbContext)
         {
             this._dbContext = dbContext;
+        }
+
+        public async Task AddRangeAsync(IEnumerable<Campaign> campaigns)
+        {
+            await _dbContext.Campaigns.AddRangeAsync(campaigns);
         }
 
         public async Task<IEnumerable<CampaignDto>> GetAllAsync()
