@@ -1,0 +1,83 @@
+﻿@page
+@using Covid19Screening.Core
+@model Covid19Screening.Web.Pages.AddExaminationModel
+@{
+    ViewData["Title"] = "Neue Testung";
+}
+
+<h1>Neue Testung</h1>
+
+<form method="post">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Campaigns" class="control-label"></label>
+            <select asp-for="Campaigns" class="form-control" asp-items="@(new SelectList(@Model.Campaigns, "Id"))">
+                <option selected="selected" value="">Kampagne auswählen</option>
+            </select>
+            <span asp-validation-for="Campaigns" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for="TestCenters" class="control-label"></label>
+            <select asp-for="TestCenters" class="form-control" asp-items="@(new SelectList(@Model.TestCenters, "Id"))">
+                <option selected="selected" value="">Untersuchungsort auswählen</option>
+            </select>
+            <span asp-validation-for="TestCenters" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Dates" class="control-label"></label>
+            <select asp-for="Dates" class="form-control" asp-items="@(new SelectList(@Model.Dates, "Id"))">
+                <option selected="selected" value="">Tag auswählen</option>
+            </select>
+            <span asp-validation-for="Dates" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label asp-for="Timespans" class="control-label"></label>
+            <span asp-validation-for="Timespans" class="text-danger"></span>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            Zeitpunkt
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Freie Plätze
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*@foreach (var item in Model.Courses)
+                {
+                    <tr>
+                        <td>
+                            <input type="radio" value="">
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Credits)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Department.Name)
+                        </td>
+                    </tr>
+                }*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Für Testung anmelden" />
+    <a class="btn btn-secondary" asp-page="/Overview">Abbrechen</a>
+</form>

@@ -1,0 +1,52 @@
+﻿@page
+@model Covid19Screening.Web.Pages.OverviewModel
+@{
+    ViewData["Title"] = "Übersicht";
+}
+
+<h1>Übersicht</h1>
+
+<p>Hier finden Sie eine Übersicht Ihrer aktuellen Testungen und können sich für weitere Testungen anmelden.</p>
+<a class="btn btn-primary" asp-page="/AddExamination">Neue Testung</a>
+
+<table class="table" style="margin-top: 50px;">
+    <thead>
+        <tr>
+            <th>
+                Kampagne
+            </th>
+            <th>
+                Zeitpunkt
+            </th>
+            <th>Test-Center</th>
+            <th>Ergebnis</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <!-- @Html.DisplayFor(modelItem => item.Id) -->
+                    </td>
+                    <td>
+                        <!-- @Html.DisplayFor(modelItem => item.Id) -->
+                    </td>
+                            <td>
+                        <!-- @Html.DisplayFor(modelItem => item.Id) -->
+                    </td>
+                    <td>
+                            <!-- @Html.DisplayFor(modelItem => item.Id) -->
+                        </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a>
+                    </td>
+                    <td>
+                        <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                    </td>
+                </tr>
+            }*@
+    </tbody>
+</table>

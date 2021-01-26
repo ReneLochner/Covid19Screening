@@ -40,7 +40,7 @@ namespace Covid19Screening.Web.Pages.Security
 
             if (verificationToken.Token == Token && verificationToken.ValidUntil >= DateTime.Now)
             {
-                return RedirectToPage("/Security/Success", new {verificationIdentifier = verificationToken.Identifier});
+                return RedirectToPage("/Overview", new {verificationIdentifier = verificationToken.Identifier});
             }
             else
             {
