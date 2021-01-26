@@ -7,6 +7,10 @@ namespace Covid19Screening.Core.Contracts
 {
     public interface IUnitOfWork : IAsyncDisposable
     {
+        ICampaignRepository Campaigns { get; }
+        IExaminationRepository Examinations { get; }
+        IParticipantRepository Participants { get; }
+        ITestCenterRepository TestCenters { get; }
         IVerificationTokenRepository VerificationTokens { get; }
 
         Task<int> SaveChangesAsync();
