@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Covid19Screening.Core\Covid19Screening.Core.csproj" />
+    <ProjectReference Include="..\Covid19Screening.Persistence\Covid19Screening.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

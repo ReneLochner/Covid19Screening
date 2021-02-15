@@ -1,5 +1,6 @@
 ﻿using Covid19Screening.Core.Contracts;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Covid19Screening.Core.Entities
 {

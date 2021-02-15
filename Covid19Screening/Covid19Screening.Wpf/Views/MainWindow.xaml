@@ -1,0 +1,62 @@
+﻿<Window x:Class="Covid19Screening.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Covid19Screening.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="550" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0"  Margin="10" Orientation="Horizontal">
+            <Label>Datum von:</Label>
+            <DatePicker SelectedDate="{Binding From}" />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1"  Margin="10" Orientation="Horizontal">
+            <Label>Datum bis:</Label>
+            <DatePicker SelectedDate="{Binding To}" />
+        </StackPanel>
+        <Button Grid.Row="1" Grid.Column="0" Command="{Binding CmdResetFilter}" Margin="10 0 10 0">Filter zurücksetzen</Button>
+
+        <DataGrid Grid.Row="2" Grid.ColumnSpan="2"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  ItemsSource="{Binding Examinations}"
+                  Margin="10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum" Width="100" Binding="{Binding ExaminationAt, StringFormat=dd.MM.yy}"/>
+                <DataGridTextColumn Header="Zeit" Width="100" Binding="{Binding ExaminationAt, StringFormat=hh:mm}"/>
+                <DataGridTextColumn Header="Id"  Width="50" Binding="{Binding Identifier}"/>
+                <DataGridTextColumn Header="Teilnehmer"  Width="200" Binding="{Binding ParticipantFullname}"/>
+                <DataGridTextColumn Header="Ergebnis"  Width="100" Binding="{Binding TestResult}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="3" Grid.Column="0"  Margin="10 0 10 0" Orientation="Horizontal">
+            <Label>Gesamt</Label>
+            <TextBlock Text="{Binding TotalExaminations}" />
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0"  Margin="10 0 10 0" Orientation="Horizontal">
+            <Label>Negativ</Label>
+            <TextBlock Text="{Binding NegativeExaminations}" />
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="0"  Margin="10 0 10 0" Orientation="Horizontal">
+            <Label>Positiv</Label>
+            <TextBlock Text="{Binding PositiveExaminations}" />
+        </StackPanel>
+
+        <Button Grid.Row="3" Grid.Column="1" Command="{Binding AddTestResult}" Margin="10 0 10 0">Testergebnis ergänzen</Button>
+    </Grid>
+</Window>
