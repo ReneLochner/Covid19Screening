@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Covid19Screening.Persistenc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImportController", "ImportController\ImportController.csproj", "{73FB7E4B-F60E-4CD9-956C-8322058FF657}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid19Screening.Wpf", "Covid19Screening.Wpf\Covid19Screening.Wpf.csproj", "{8E322A99-6320-4379-A410-CD0A800FAA44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Covid19Screening.Wpf", "Covid19Screening.Wpf\Covid19Screening.Wpf.csproj", "{8E322A99-6320-4379-A410-CD0A800FAA44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Covid19Screening.Api", "Covid19Screening.Api\Covid19Screening.Api.csproj", "{DD809CB7-F77A-4E0D-96AF-1B91E4B508EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{8E322A99-6320-4379-A410-CD0A800FAA44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E322A99-6320-4379-A410-CD0A800FAA44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E322A99-6320-4379-A410-CD0A800FAA44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD809CB7-F77A-4E0D-96AF-1B91E4B508EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD809CB7-F77A-4E0D-96AF-1B91E4B508EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD809CB7-F77A-4E0D-96AF-1B91E4B508EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD809CB7-F77A-4E0D-96AF-1B91E4B508EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
