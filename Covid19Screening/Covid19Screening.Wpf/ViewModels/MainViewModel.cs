@@ -100,7 +100,7 @@ namespace Covid19Screening.Wpf.ViewModels
             }
 
             await using IUnitOfWork uow = new UnitOfWork();
-            var examinations = await uow.Examinations.GetFilteredExamination((DateTime)From, (DateTime)To);
+            var examinations = await uow.Examinations.GetFilteredByTimeSpan((DateTime)From, (DateTime)To);
             Examinations = new ObservableCollection<ExaminationDto>(examinations);
 
             CalculateStatistics();

@@ -16,6 +16,14 @@ namespace Covid19Screening.Core.Entities
         [DisplayName("Nachname")]
         public string LastName { get; set; }
 
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
+
         [Required]
         [DisplayName("Geburtsdatum")]
         public DateTime Birthdate { get; set; }

@@ -14,6 +14,10 @@ namespace Covid19Screening.Core.DTOs
         public int Postalcode { get; set; }
         public string City { get; set; }
 
+        public TestCenterDto()
+        {
+        }
+
         public TestCenterDto(TestCenter testCenter)
         {
             this.Name = testCenter.Name;

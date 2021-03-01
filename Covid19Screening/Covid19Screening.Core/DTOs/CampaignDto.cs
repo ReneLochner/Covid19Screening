@@ -12,6 +12,10 @@ namespace Covid19Screening.Core.DTOs
         public string Name { get; set; }
         public DateTime To { get; set; }
 
+        public CampaignDto()
+        {
+        }
+
         public CampaignDto(Campaign campaign)
         {
             this.From = campaign.From;

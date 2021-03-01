@@ -9,15 +9,18 @@ namespace Covid19Screening.Core.DTOs
     public class ExaminationDto
     {
         public int Id { get; set; }
-        public string ParticipantFullName { get; set; }
         public TestResults TestResult { get; set; }
         public DateTime ExaminationAt { get; set; }
         public string Identifier { get; set; }
+        public string ParticipantFullName { get; set; }
+
+        public ExaminationDto()
+        {
+        }
 
         public ExaminationDto(Examination examination)
         {
             this.Id = examination.Id;
-            this.ParticipantFullName = $"{examination.Participant.FirstName} {examination.Participant.LastName}";
             this.TestResult = examination.TestResult;
             this.ExaminationAt = examination.ExaminationAt;
             this.Identifier = examination.Identifier;
