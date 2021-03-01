@@ -8,6 +8,8 @@ namespace Covid19Screening.Core.Contracts
 {
     public interface IExaminationRepository
     {
-        Task<ExaminationDto[]> GetFilteredExamination(DateTime from, DateTime to);
+        Task<ExaminationDto[]> GetFilteredByTimeSpan(DateTime from, DateTime to);
+        Task<ExaminationDto[]> GetByCampaignIdAsync(int campaignId);
+        Task<ExaminationDto[]> GetByTestCenterIdAsync(int id);
     }
 }

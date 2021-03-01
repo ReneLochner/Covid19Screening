@@ -18,12 +18,52 @@ namespace Covid19Screening.Persistence.Repositories
             this._dbContext = dbContext;
         }
 
-        public async Task<ExaminationDto[]> GetFilteredExamination(DateTime from, DateTime to)
+        public async Task<ExaminationDto[]> GetFilteredByTimeSpan(DateTime from, DateTime to)
+        {
+            var query = _dbContext.Examinations.AsQueryable();
+
+            query = query.Where(examination => examination.ExaminationAt.Date >= from.Date);
+            query = query.Where(examination => examination.ExaminationAt.Date <= to.Date);
+
+            return await query
+                .OrderBy(examination => examination.ExaminationAt)
+                .Select(examination => new ExaminationDto
+                {
+                    Id = examination.Id,
+                    TestResult = examination.TestResult,
+                    ExaminationAt = examination.ExaminationAt,
+                    Identifier = examination.Identifier,
+                    ParticipantFullName = examination.Participant.FullName
+                })
+                .ToArrayAsync();
+        }
+
+        public async Task<ExaminationDto[]> GetByCampaignIdAsync(int campaignId)
         {
             return await _dbContext.Examinations
-               .Include(participant => participant.Participant)
-               .Select(s => new ExaminationDto(s))
-               .ToArrayAsync();
+                .Where(examination => examination.Campaign.Id == campaignId)
+                .Select(examination => new ExaminationDto
+                {
+                    Id = examination.Id,
+                    TestResult = examination.TestResult,
+                    ExaminationAt = examination.ExaminationAt,
+                    Identifier = examination.Identifier
+                })
+                .ToArrayAsync();
+        }
+
+        public async Task<ExaminationDto[]> GetByTestCenterIdAsync(int id)
+        {
+            return await _dbContext.Examinations
+                 .Where(testCenter => testCenter.TestCenter.Id == id)
+                 .Select(examination => new ExaminationDto
+                 {
+                     Id = examination.Id,
+                     TestResult = examination.TestResult,
+                     ExaminationAt = examination.ExaminationAt,
+                     Identifier = examination.Identifier
+                 })
+                 .ToArrayAsync();
         }
     }
 }

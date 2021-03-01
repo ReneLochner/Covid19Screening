@@ -11,5 +11,11 @@ namespace Covid19Screening.Core.Contracts
     {
         Task AddRangeAsync(IEnumerable<TestCenter> testCenters);
         Task<IEnumerable<TestCenterDto>> GetAllAsync();
+        Task<TestCenter> GetByIdAsync(int id);
+        Task<TestCenter[]> GetByCampaignIdAsync(int campaignId);
+        Task<TestCenterDto[]> GetByPostalCodeAsync(int postalCode);
+        Task AddAsync(TestCenter testCenter);
+        void Update(TestCenter testCenter);
+        void Remove(TestCenter testCenter);
     }
 }

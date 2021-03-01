@@ -31,5 +31,39 @@ namespace Covid19Screening.Persistence.Repositories
                 .Select(campaign => new CampaignDto(campaign))
                 .ToListAsync();
         }
+
+        public async Task<Campaign> GetByIdAsync(int id)
+        {
+            return await _dbContext.Campaigns
+                .SingleOrDefaultAsync(campaign => campaign.Id == id);
+        }
+
+        public async Task<CampaignDto> GetDtoByIdAsync(int id)
+        {
+            return await _dbContext.Campaigns
+                .Select(campaign => new CampaignDto
+                {
+                    Id = campaign.Id,
+                    Name = campaign.Name,
+                    From = campaign.From,
+                    To = campaign.To
+                })
+                .SingleOrDefaultAsync(campaign => campaign.Id == id);
+        }
+
+        public async Task AddAsync(Campaign campaign)
+        {
+            await _dbContext.Campaigns.AddAsync(campaign);
+        }
+
+        public void Update(Campaign campaign)
+        {
+            _dbContext.Campaigns.Update(campaign);
+        }
+
+        public void Remove(Campaign campaign)
+        {
+            _dbContext.Campaigns.Remove(campaign);
+        }
     }
 }
