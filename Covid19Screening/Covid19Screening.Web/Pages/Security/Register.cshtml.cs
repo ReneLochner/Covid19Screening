@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Covid19Screening.Core.DTOs;
+using Covid19Screening.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using static Covid19Screening.Core.Enums;
@@ -12,6 +15,10 @@ namespace Covid19Screening.Web.Pages.Security
 {
     public class RegisterModel : PageModel
     {
+        private readonly UserManager<Participant> _userManager;
+
+        public ParticipantDto AuthUser { get; set; }
+
         [BindProperty]
         [Required(ErrorMessage = "Der {0} ist verpflichtend!")]
         [MinLength(2, ErrorMessage = "Der {0} muss mindestens 2 Zeichen lang sein!")]
@@ -89,8 +96,46 @@ namespace Covid19Screening.Web.Pages.Security
         [DisplayName("Ort")]
         public string City { get; set; }
 
-        public void OnGet()
+        public RegisterModel(UserManager<Participant> userManager)
         {
+            this._userManager = userManager;
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.CreateAsync(
+                    new Participant
+                    {
+                        FirstName = AuthUser.FirstName,
+                        LastName = AuthUser.LastName,
+                        Birthdate = AuthUser.Birthdate,
+                        Gender = AuthUser.Gender,
+                        SocialSecurityNumber = AuthUser.SocialSecurityNumber,
+                        MobileNumber = AuthUser.MobileNumber,
+                        Street = AuthUser.Street,
+                        HouseNumber = AuthUser.HouseNumber,
+                        StairNumber = AuthUser.StairNumber,
+                        DoorNumber = AuthUser.DoorNumber,
+                        Postcode = AuthUser.Postcode,
+                        City = AuthUser.City
+                    });
+
+                if (!result.Succeeded)
+                {
+                    foreach (string error in result.Errors.Select(e => e.Description))
+                    {
+                        ModelState.AddModelError(string.Empty, error);
+                    }
+                }
+                else
+                {
+                    return RedirectToPage("./Login");
+                }
+            }
+
+            return Page();
         }
     }
 }
